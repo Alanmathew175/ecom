@@ -149,7 +149,7 @@ exports.blockUser = async (req, res) => {
                 { _id: id },
                 { $set: { isBlocked: true } }
             );
-        
+            req.session.userid
         }
         res.redirect("/admin/users/?page=" + page);
     } catch (error) {
