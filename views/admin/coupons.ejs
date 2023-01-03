@@ -1,0 +1,176 @@
+<%- include("../layouts/header.ejs") %> <%-
+include("../layouts/adminnavbar.ejs") %>
+<div class="work-space py-3 px-5">
+    <h2 class="text-center mt-2">Manage Coupons</h2>
+
+    <a href="/admin/add-coupons" class="btn btn-primary ms-3">Add Coupons</a>
+
+    <div class="container bootstrap snippets bootdey mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table user-list">
+                                <thead>
+                                    <tr>
+                                        <th><span>Name</span></th>
+                                        <th><span>Value</span></th>
+                                        <!-- <th><span>Code</span></th> -->
+                                        <th><span>Expiry Date</span></th>
+                                        <th><span>Minimum Bill</span></th>
+                                        <th><span>Status</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(coupons.length > 0){ for(let i=0; i <
+                                    coupons.length; i++ ){%>
+                                    <tr>
+                                        <td><%=coupons[i].name %></td>
+                                        <td><%=coupons[i].value %></td>
+                                       
+                                        <td><%=coupons[i].date.toDateString() %></td>
+                                        <td><%=coupons[i].minbill %></td>
+
+                                        <td>
+                                            <!-- Default switch -->
+
+                                            <% if(coupons[i].status==1) { %>
+
+                                            <img
+                                                style="width: 1.6vw"
+                                                src="/images/greenmark.png "
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#model<%=coupons[i]._id  %>"
+                                            />
+                                            <!-- Modal -->
+                                            <div
+                                                class="modal fade"
+                                                id="model<%=coupons[i]._id  %>"
+                                                tabindex="-1"
+                                                aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div
+                                                            class="modal-header"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div
+                                                            class="modal-body text-center"
+                                                        >
+                                                            <p>
+                                                                Do you want to
+                                                                inactivate
+                                                                <%=coupons[i].name
+                                                                %>?
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Cancel
+                                                            </button>
+
+                                                            <a
+                                                                href="/admin/activate-coupons?id=<%= coupons[i]._id %> "
+                                                                class="btn btn-danger text-decoration-none"
+                                                                >Done</a
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- modal end -->
+                                            <% } else { %>
+
+                                            <img
+                                                style="width: 1.9vw"
+                                                src="/images/redmark.png "
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#model<%=coupons[i]._id  %>"
+                                            />
+
+                                            <!-- Modal -->
+                                            <div
+                                                class="modal fade"
+                                                id="model<%=coupons[i]._id  %>"
+                                                tabindex="-1"
+                                                aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div
+                                                            class="modal-header"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div
+                                                            class="modal-body text-center"
+                                                        >
+                                                            <p>
+                                                                Do you want to
+                                                                Activate
+                                                                <%=coupons[i].name
+                                                                %>?
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Cancel
+                                                            </button>
+
+                                                            <a
+                                                                href="/admin/activate-coupons?id=<%= coupons[i]._id %> "
+                                                                class="btn btn-success text-decoration-none"
+                                                                >Done</a
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- modal end -->
+
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                    <%}}else{%>
+                                    <tr>
+                                        <td>Coupon not found</td>
+                                    </tr>
+                                    <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../layouts/footer.ejs") %>

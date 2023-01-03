@@ -1,0 +1,97 @@
+<%- include("../layouts/header.ejs") %> <%-
+include("../layouts/adminnavbar.ejs") %>
+<div class="work-category py-3 px-5 ">
+    <div class="d-flex flex-column align-items-center">
+        <h2 class="mt-2">Manage Categories</h2>
+    </div>
+    <div class="mt-3 ">
+     <form action="" method="post">
+        <div class="row">
+          <div class="col-md-12 mb-4 ps-4">
+              <div class="form-outline">
+                <input style="width:30vw;" type="text" name="category" id="form3Example1" class="form-control" placeholder="Category"
+                />
+              </div >
+            
+              
+              
+              <input style="width:7vw;" type="submit" class="btn btn-primary mt-3 form-control " value="Add">
+              <% if(typeof message !== 'undefined'){%>
+                
+                <p class="mt-1 ps-2  text-danger" ><%= message %></p>
+                 
+               <%}%>
+            </div>
+          
+           
+         
+      </form>
+    </div>
+    <!-- categorey table -->
+    <div class="container bootstrap snippets bootdey">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table user-list">
+                                <thead>
+                                    <tr>
+                                        <th><span>Sl NO</span></th>
+                                        <th><span>Category Name</span></th>
+                                        <th><span>Action</span></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(categories.length > 0){
+                                        for(let i=0; i<categories.length;i++ ){%>
+                                    <tr>
+                                        <td>
+                                            <span><%=i+1 %></span>
+                                        </td>
+                                        <td><%=  categories[i].categoryName %></td>
+                                        <td>
+                                            <i class="bi bi-trash" data-bs-toggle="modal" data-bs-target="#model<%=categories[i]._id  %>"></i>
+                                            
+                                        </td>
+                                          <!-- Modal -->
+  <div class="modal fade" id="model<%=categories[i]._id  %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content ">
+        <div class="modal-header ">
+          
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Do you want to delete <%=  categories[i].categoryName %> category?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          
+          <a href="/admin/delete-category?name=<%= categories[i]. categoryName %>" class="btn btn-danger text-decoration-none">Delete</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+                                    </tr>
+
+                                    <%}}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+ 
+ 
+</div>
+
+
+<%- include("../layouts/footer.ejs") %>

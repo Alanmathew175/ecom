@@ -1,0 +1,125 @@
+<header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4 " >
+             
+                <a
+                    href="/admin/home"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/home'?'active': ''%>"
+                    aria-current="true"
+                    
+                >
+                    <span>Dashboard</span>
+                </a>
+                <a
+                    href="/admin/users"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/users'?'active': ''%>"
+                >
+                    <span>Customers</span>
+                </a>
+                <a
+                    href="/admin/products"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/products'?'active': ''%>"
+                >
+                    <span>Products</span></a
+                >
+                <a
+                    href="/admin/coupons"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/coupons'?'active': ''%>"
+                >
+                    <span>Coupons</span></a
+                >
+                <a
+                    href="/admin/category"
+                    class="list-group-item list-group-item-action py-2 ripple   <%=path==='/admin/category'?'active': ''%>"
+                >
+                    <span>Category</span>
+                </a>
+                <a
+                    href="/admin/orders"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/orders'?'active': ''%>"
+                >
+                    <span>Orders</span></a
+                >
+                <a
+                    href="/admin/banners"
+                    class="list-group-item list-group-item-action py-2 ripple  <%=path==='/admin/banners'?'active': ''%>"
+                >
+                    <span>Banners</span></a
+                >
+                <a
+                href="/admin/logout"
+                class="list-group-item list-group-item-action py-2 ripple "
+            >
+                <span>Logout</span></a
+            >
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav
+        id="main-navbar"
+        class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+    >
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#sidebarMenu"
+                aria-controls="sidebarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Brand -->
+            <a class="navbar-brand ps-2" href="/admin/home">
+                
+                <img
+                    class="mb-2"
+                    src="/images/newlogo.png"
+                    height="35"
+                    alt="MDB Logo"
+                    loading="lazy"
+                />
+                <span class="brand-name ">STUDIO</span>
+          
+            </a>
+
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <!-- Icon dropdown -->
+             
+                   
+                        <img
+                            src="/images/man.png"
+                            class="rounded-circle me-3"
+                            height="22"
+                            
+                            loading="lazy"
+                            data-bs-toggle="dropdown" 
+                            class=" dropdown-toggle"
+                        />
+                   
+                
+
+                
+            </ul>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4"></div>
+</main>
+<!--Main layout-->

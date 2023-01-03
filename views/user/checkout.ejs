@@ -1,0 +1,252 @@
+<%- include("../layouts/userheader.ejs") %>
+
+<%- include("../layouts/navbar.ejs") %>
+
+
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
+          <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+        <h1 class="mb-0 bread">Checkout</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 ftco-animate">
+                    <form action="/place-order" class="billing-form" id="billingform" method="post">
+                        <h3 class="mb-4 billing-heading">Billing Details</h3>
+              <div class="row align-items-end">
+                <div class="col-md-12">
+                  <div class="form-group mt-4">
+                                      <div class="radio border p-3 pb-1" style="border-radius: 8px; line-height:1.2px;">
+                                     
+                                        <label><input type="radio" name="currentAddress" value="currentAddress"> Ship to current address</label>
+                                          <p class="mt-2"><%= user.firstname %><%= user.lastname %></p>
+                                          <p ><%= user.address %>, <%= user.city %>,<%= user.state %>,<%= user.country %>,<%= user.zip %></p>
+                                          <p>Mob:<%= user.phonenumber %></p><span>Email: <%= user.email %></span>
+                                         
+                                      </div>
+                                  </div>
+              </div>
+                  <div class="col-md-12">
+                <div class="form-group">
+                  <h4 class="ms-2">Add new address</h4>
+
+                    <label for="firstname">Name</label>
+                  <input type="text" class="form-control" placeholder="" name="name">
+                </div>
+              </div>
+              
+            <div class="w-100"></div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <div class="select-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="country" id="" class="form-control">
+                          <option value="France">France</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="India">India</option>
+                        <option value="Hongkong">Hongkong</option>
+                        <option value="Japan">Japan</option>
+                      </select>
+                    </div>
+                    </div>
+                </div>
+                <input type="hidden" id="payment" name="payment" value="">
+                <div class="w-100"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="streetaddress">Street Address</label>
+                  <input type="text" class="form-control" name="address" placeholder="House number and street name">
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">State</label>
+                  <input type="text" class="form-control" placeholder="" name="state">
+                </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="towncity">Town / City</label>
+                  <input type="text" class="form-control" placeholder="" name="city">
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="postcodezip">Postcode / ZIP *</label>
+                  <input type="text" class="form-control" placeholder="" name="zip">
+                </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-6">
+                <div class="form-group">
+                  <input type="hidden" name="savedAddress" value="" id="current">
+                    <label for="phone">Phone</label>
+                  <input type="text" class="form-control" placeholder="" name="phone">
+                </div>
+              </div>
+              <div class="col-md-6">
+                  
+                                
+                              
+                                <input value= "<%=  cartProduct.totalPrice +90 - afterPrice %> " type="hidden" name="amount">
+                               
+                       
+                <div class="form-group">
+                    <label for="emailaddress">Email Address</label>
+                  <input type="text" class="form-control" placeholder="" name="email">
+               
+                
+                </div>
+            </div>
+            <div class="w-100"></div>
+           
+            </div>
+           
+          </form><!-- END -->
+
+
+
+          <div class="row mt-5 pt-3 d-flex">
+              <div class="col-md-6 d-flex">
+                  <div class="cart-detail cart-total bg-light p-3 p-md-4">
+                      <h3 class="billing-heading mb-4">Your Order</h3>
+                      <p class="d-flex">
+                                <span>Subtotal</span>
+                                <span> &#8377;<%=  cartProduct.totalPrice %>.00</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Delivery</span>
+                                <span>&#8377;90.00</span>
+                            </p>
+                            <% if(isApplied==0){ %>
+                            <% if(coupons.length >0){ %>
+                            <p>
+                               
+                                <span>Apply coupons</span>
+                                <form action="" method="post">
+                                      <div class="d-flex flex-column">
+                                        <input type="hidden" id="hidden" name="value" value="">
+                                        <input type="hidden" name="total" value="<%=  cartProduct.totalPrice %>">
+                                    <% coupons.forEach(x=>{ %> 
+                                        <div>
+                                             
+                                        <input type="radio" name="coupon"  value="<%=x.value %>"
+                                        
+                                        >
+                                      
+                                        
+                                        <label for=""><%=x.name %></label><br>
+                                        
+                                          <label>  <% if( cartProduct.totalPrice< x.minbill){%>
+                                            You need to purchase <%=x.minbill  -  cartProduct.totalPrice %> to get <%=x.value %> off  
+                                            <a href="/shop">Shop more</a>
+                                         <% }else {%>
+                                            Get <%=x.value %> off on your order
+                                            <% } %>
+
+                                        </label>
+                                    </div>
+                                        <% } )%> 
+                                  
+                                  <span><input type="submit" id="btnradio" value="Apply"></span>
+                                </div>
+                                </form>
+                        
+                            </p>
+                            <% } %>
+                            <%} else{ %>
+                                <p class="text-success">Coupon applied </p>
+                                <%} %>
+                            <hr>
+                            <p class="d-flex total-price">
+                                <span>Total</span>
+                                <% if(afterPrice == 0){%>
+                                <span> &#8377;<%=  cartProduct.totalPrice +90  %> .00</span>
+                                <% } else {%>
+                                    <span><%=  cartProduct.totalPrice +90 - afterPrice %></span>
+                                    <%} %>
+                            </p>
+                            </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="cart-detail bg-light p-3 p-md-4">
+                      <h3 class="billing-heading mb-4">Payment Method</h3>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                           <label><input type="radio"name="optradio" class="mr-2" value="Cash on delivery"> Cash on Delivery</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                           <label><input type="radio" name="optradio" class="mr-2" value="Razorpay">Razor Pay</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                           <label><input type="radio" name="optradio" class="mr-2" value="Paypal"> Paypal</label>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <% if(typeof message !== 'undefined'){%>
+                
+                                  <p class="mt-1 ps-2  text-danger" ><%= message %></p>
+                                   
+                                 <%}%>
+                                <input type="submit" form="billingform" class="btn btn-primary py-3 px-4" value="Place an order" >
+                            </div>
+              </div>
+          </div>
+      </div> <!-- .col-md-8 -->
+    </div>
+  </div>
+</section> <!-- .section -->
+
+
+<%- include("../layouts/footersection.ejs") %>
+<script>
+
+    let radiobtns = document.querySelectorAll("input[name='coupon']")
+    let result = document.getElementById("hidden")
+     let findSelected = ()=>{
+        let selected = document.querySelector("input[name='coupon']:checked").value
+        result.value = selected
+     }
+    radiobtns.forEach(radiobtn =>{
+        radiobtn.addEventListener("change",findSelected)
+    })
+    
+
+
+    let rdbtns = document.querySelectorAll("input[name='optradio']")
+    let output = document.querySelector("#payment")
+    function selected() {
+         let selected = document.querySelector("input[name='optradio']:checked").value
+       
+         output.value = selected
+
+       }
+       rdbtns.forEach(x=>{
+        x.addEventListener('change',selected)
+       })
+
+       
+      
+   
+</script>
+<%- include("../layouts/userfooter.ejs") %>

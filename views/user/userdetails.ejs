@@ -1,0 +1,58 @@
+<%- include("../layouts/userheader.ejs") %> 
+<%- include("../layouts/navbar.ejs") %>
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border rounded">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+            <span class="text-black-50"> <%= userData.firstname %> <%= userData.lastname %></span><span> <%= userData.email %></span>
+            <a href="/login"><span class="font-weight-bold">Profile </span></a>
+
+            <a href="/myorders"><span class="font-weight-bold">My orders </span></a>
+            <a href="/logout"><span class="font-weight-bold">Logout</span></a>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile </h4>
+                </div>
+                <form action="/user-details" method="post">
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">Name</label><input  type="text" class="form-control"  value="<%= userData.firstname %> <%= userData.lastname %>"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input name="phonenumber" type="tel" class="form-control" value="<%= userData.phonenumber %>" ></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input name="email" type="email" class="form-control" value="<%= userData.email %>"></div>
+                    <div class="col-md-12"><label class="labels">Address</label><input name="address" type="text" class="form-control" value="<%= userData.address %>"></div>
+                  
+                </div>
+                <div class="mt-5 "><input class="btn btn-primary profile-button  "  type="submit" value="Save Profile"></div>
+        
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-center align-items-center experience"><span></span><span class="border  p-1 add-experience"></span></div><br>
+                <div class="col-md-12"><label class="labels"></label><div class="myorders">
+                    <div class="col-md-12"><label class="labels">City</label><input name="city" type="text" class="form-control" value="<%= userData.city %>"></div>
+                    <div class="col-md-12"><label class="labels">State</label><input name="state" type="text" class="form-control" value="<%= userData.state %>"></div>
+                    <div class="col-md-12"><label class="labels">Postcode</label><input name="zip" type="tel" class="form-control" value="<%= userData.zip %>"></div>
+                    <div class="col-md-12"><label class="labels">Country</label><input name="country" type="text" class="form-control" value="<%= userData.country %>"></div>
+                </form>
+                 </div> <br>
+                <div class="col-md-12"><label class="labels"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+<%- include("../layouts/footersection.ejs") %>
+
+<%- include("../layouts/userfooter.ejs") %>

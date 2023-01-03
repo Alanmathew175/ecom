@@ -1,0 +1,201 @@
+<%- include("../layouts/header.ejs") %> <%-
+include("../layouts/adminnavbar.ejs") %>
+<div class="work-space py-3 px-5">
+    <h2 class="text-center mt-2">Manage Customers</h2>
+
+    <div class="container bootstrap snippets bootdey mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table user-list">
+                                <thead>
+                                    <tr>
+                                        <th><span>Name</span></th>
+                                        <th><span>Mobile</span></th>
+                                        <th><span>Email</span></th>
+
+                                        <th><span>Action</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(users.length > 0){ for(let i=0; i <
+                                    users.length; i++ ){%>
+                                    <tr>
+                                        <td>
+                                            <%=users[i].firstname %>
+                                            <%=users[i].lastname %>
+                                        </td>
+                                        <td><%=users[i].phonenumber %></td>
+                                        <td><%=users[i].email %></td>
+
+                                        <td>
+                                            <!-- Default switch -->
+
+                                            <% if(users[i].isBlocked) { %>
+
+                                            <img
+                                                style="width: 1.6vw"
+                                                src="/images/redlock.png "
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#model<%=users[i]._id  %>"
+                                            />
+                                            <!-- Modal -->
+                                            <div
+                                                class="modal fade"
+                                                id="model<%=users[i]._id  %>"
+                                                tabindex="-1"
+                                                aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div
+                                                            class="modal-header"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div
+                                                            class="modal-body text-center"
+                                                        >
+                                                            <p>
+                                                                Do you want to
+                                                                unblock
+                                                                <%=users[i].firstname
+                                                                %>?
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Cancel
+                                                            </button>
+
+                                                            <a
+                                                                href="/admin/block-user?page=<%=currentPage%>&&id=<%= users[i]._id %> "
+                                                                class="btn btn-success text-decoration-none"
+                                                                >Unblock</a
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- modal end -->
+                                            <% } else { %>
+
+                                            <img
+                                                style="width: 1.6vw"
+                                                src="/images/greenlock.png "
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#model<%=users[i]._id  %>"
+                                            />
+
+                                            <!-- Modal -->
+                                            <div
+                                                class="modal fade"
+                                                id="model<%=users[i]._id  %>"
+                                                tabindex="-1"
+                                                aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div
+                                                            class="modal-header"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div
+                                                            class="modal-body text-center"
+                                                        >
+                                                            <p>
+                                                                Do you want to
+                                                                Block
+                                                                <%=users[i].firstname
+                                                                %>?
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Cancel
+                                                            </button>
+
+                                                            <a
+                                                                href="/admin/block-user?page=<%=currentPage%>&&id=<%= users[i]._id %> "
+                                                                class="btn btn-danger text-decoration-none"
+                                                                >Block</a
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- modal end -->
+
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                    <%}}else{%>
+                                    <tr>
+                                        <td>Users not found</td>
+                                    </tr>
+                                    <%}%>
+                                </tbody>
+                            </table>
+                            <% if(totalProducts>itemsPerPage){%>
+                            <section
+                                class="pagination position-end d-flex justify-content-center align-items-center"
+                            >
+                                <% if(currentPage !=1 && needPreviousPage== !1){
+                                %>
+                                <a href="/admin/users/?page=1">1</a>
+                                <% } %> <% if( needPreviousPage){ %>
+                                <a href="/admin/users/?page=<%=previousPage%>"
+                                    ><%=previousPage%></a
+                                >
+
+                                <% } %>
+
+                                <a
+                                    href="/admin/users/?page=<%=currentPage%>"
+                                    class="active"
+                                    ><%=currentPage%></a
+                                >
+                                <% if( needNextPage){ %>
+                                <a href="/admin/users/?page=<%=nextPage%>"
+                                    ><%=nextPage%></a
+                                >
+
+                                <% } %>
+                            </section>
+                            <%}%>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../layouts/footer.ejs") %>

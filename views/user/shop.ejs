@@ -1,0 +1,194 @@
+<%- include("../layouts/userheader.ejs") %> 
+
+<%- include("../layouts/navbar.ejs") %>
+
+
+  
+      <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+        <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+              <h1 class="mb-0 bread">Collection Products</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container"><br/>
+        <div class="row justify-content-center">
+              <div class="col-12 col-md-10 col-lg-8">
+                  <div class="card-body row no-gutters align-items-center">
+                      <div class="col">
+                          <input class="form-control form-control-lg" type="text" placeholder="Search keywords" onkeyup="sendData(this)">
+                          <section id="searchResults">
+                          </section>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <section class="ftco-section bg-light">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 col-lg-10 order-md-last">
+                      <div class="row">
+                        <% products.forEach(x=>{ %>
+                          <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+                              <div class="product">
+                                  <a href="/singleview?id=<%=x._id %>"  class="img-prod"><img class="img-fluid" src="<%=x.image[0] %>" alt="Colorlib Template">
+                                      <!-- <span class="status">30%</span> -->
+                                      <div class="overlay"></div>
+                                  </a>
+                                  <div class="text py-3 px-3">
+                                      <h3><a href="#"><%=x.title %></a></h3>
+                                      <div class="d-flex">
+                                          <div class="pricing">
+                                              <p class="price"><span class="mr-2 price-dc">&#8377;  <%=x.price %></span><span class="price-sale">&#8377;  <%=x.offer %></span></p>
+                                          </div>
+                                          <div class="rating">
+                                              <p class="text-right">
+                                                  <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                  <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                  <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                  <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                  <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                              </p>
+                                          </div>
+                                      </div>
+                                      <p class="bottom-area d-flex px-3">
+                                        <input type="hidden" value="<%=x._id %>">
+                                          <a class="add-to-cart text-center py-2 mr-1 addToCartbtn"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+                                          <!-- <a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a> -->
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                                
+                           <% }) %>
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                      </div>
+                      <% if(totalProducts>itemsPerPage){%>
+                        <div class="row mt-5">
+                      <div class="col text-center">
+                        <div class="block-27">
+                                   <ul>
+                             
+                                  <% if(currentPage !=1 && needPreviousPage== !1){
+                                  %>
+                                  <li><a href="/shop?page=1">1</a></li>
+                                  <% } %> <% if( needPreviousPage){ %>
+                                    <li><a href="/shop?page=<%=previousPage%>"
+                                      ><%=previousPage%></a
+                                  ></li>
+  
+                                  <% } %>
+  
+                                  <li class="active"><a
+                                      href="/shop?page=<%=currentPage%>"
+                                      
+                                      ><%=currentPage%></a
+                                  ></li>
+                                  <% if( needNextPage){ %>
+                                    <li> <a href="/shop?page=<%=nextPage%>"
+                                      ><%=nextPage%></a
+                                  ></li>
+  
+                                  <% } %>
+                                </ul>
+                                
+                        </div>
+                      </div>
+                    </div>
+                    <%}%> 
+                    </div>
+
+
+
+
+
+
+
+
+  
+                  <div class="col-md-4 col-lg-2 sidebar">
+                      <div class="sidebar-box-2">
+                          <h2 class="heading mb-4"><a href="#">Shoes</a></h2>
+                          <ul>
+                              
+                                  <li><a href="/shop">Men</a></li>
+                                  <li><a href="/women">Women</a></li>
+                                  <li><a href="/kids">Kids</a></li>
+                                 
+                          </ul>
+                      </div>
+                      
+                      
+                  </div>
+              </div>
+          </div>
+      </section>
+  
+     
+  <%- include("../layouts/footersection.ejs") %>
+
+  <script>
+    function sendData(e){
+        const searchResults= document.getElementById("searchResults")
+        let match = e.value.match(/^[a-zA-Z ]*$/);
+        let match2 = e.value.match(/\s*/);
+        if (match2[0] === e.value){
+            searchResults.innerHTML = '';
+            return;
+        }
+        if(match[0] === e.value){
+            fetch("getProducts",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({products: e.value})
+        }).then(res=> res.json()).then(data=>{
+            let products= data.products;
+            searchResults.innerHTML="";
+            if(products.length<1){
+                searchResults.innerHTML = "<p>Sorry. Nothing found</p>" 
+                return;
+            }
+            products.forEach((item,index) => {
+
+                if(index > 0)searchResults.innerHTML += "<hr>";
+                searchResults.innerHTML +=  `<a href="/singleview?id=${item._id}"> ${item.title} <\a>`
+
+            });
+        });
+        return;
+        }
+    }
+</script>
+<script>
+const addToCartbtns = document.querySelectorAll('.addToCartbtn')
+
+const addToCartbtnHandler = async(e)=>{
+
+ const id = e.target.parentElement.parentElement.children[0].value
+
+ const data = {qty :1}
+ 
+ const response = await fetch(`/addtocart/?id=${id}`,{
+     method:'post',
+     headers:{'Content-Type':'application/json'},
+     body:JSON.stringify(data)
+ })
+ const value = await response.json()
+ console.log(value);
+}
+addToCartbtns.forEach(x=>{
+  x.addEventListener('click',addToCartbtnHandler) 
+})
+
+</script>
+<%- include("../layouts/userfooter.ejs") %>

@@ -1,0 +1,123 @@
+<%- include("../layouts/header.ejs") %>
+<%- include("../layouts/adminnavbar.ejs") %>
+<div class=" work-space  py-3 px-5 ">
+	<h2 class="text-center mt-2">Manage Products</h2>
+    <a class="btn btn-primary ms-3" href="/admin/add-products">Add Products</a>
+    
+<div class="container mt-3">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<div class="table-responsive">
+				<table class="table user-list">
+					<thead>
+						<tr>
+							<th><span>Products</span></th>
+							<th><span>Brand</span></th>
+							<th><span>Category</span></th>
+							<th class="text-center"><span>Status</span></th>
+							<th><span>Stock</span></th>
+                            <th><span>MRP</span></th>
+                            <th><span>Offer</span></th>
+                            <th><span>Actions</span></th>
+							
+						</tr>
+					</thead>
+					<tbody><% products.forEach(x=>{ %>
+
+
+						<tr>
+							<td>
+								<img src="<%=x.image[0] %>" alt="">
+								<%=x.title %>
+								
+							</td>
+							<td>
+								<%=x.brand %>
+                              
+							</td>
+							<td>
+								<%=x.category %>
+                              
+							</td>
+							<td class="text-center">
+								<% if(x.stock ===0){%>
+								<span class="label label-default text-danger ">Out of Stock</span>
+								<%}else if(x.stock < 10 ){ %>
+									<span class="label label-default text-warning alert-warning  "> Only few left</span>
+									
+                                 <%} else { %>
+								 <span class="label label-default text-success alert-success"> Instock</span>
+								 <%}  %>
+
+							</td>
+							<td>
+								<%=x.stock %>
+							</td>
+                            <td>
+								<%=x.price %>
+							</td>
+                            <td>
+								<%=x.offer %>
+							</td>
+							<td style="width: 20%;">
+								
+								
+									<span class="fa-stack ms-3">
+									
+										<a  href="/admin/edit-products?id=<%=x._id %>" class="text-decoration-none"><i class="bi bi-pencil-square fa-stack-1x fa-inverse "></i>  </a>
+									</span>
+								</a>
+								
+									<span class="fa-stack ms-3">
+								
+										<i class=" text-danger bi bi-trash fa-stack-1x fa-inverse" data-bs-toggle="modal" data-bs-target="#model<%=x._id  %>" ></i>
+									</span>
+								</a>
+							</td>
+						</tr>
+                 
+                   <!-- Modal -->
+  <div class="modal fade" id="model<%=x._id  %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content ">
+        <div class="modal-header ">
+          
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Do you want to delete <%=x.title %>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          
+          <a href="/admin/delete-products?id=<%=x._id %>" class="btn btn-danger text-decoration-none">Delete</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+  <% }) %>
+						
+					
+						
+						
+
+						
+						
+						
+					
+					</tbody>
+				</table>
+			</div>
+		
+		</div>
+	</div>
+</div>
+</div>
+
+</div>
+
+
+<%- include("../layouts/footer.ejs") %>

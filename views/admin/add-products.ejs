@@ -1,0 +1,61 @@
+<%- include("../layouts/header.ejs") %> <%-
+include("../layouts/adminnavbar.ejs") %>
+<div class="work-space pt-2">
+    <section class="mx-3" style=" padding: 5rem; height: 100%; margin-top: 2rem; border-radius: 15px;">
+        <div class="container">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+              <h2 class="text-center">Add Product</h2>
+              <form
+                action=""
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <label for="">Name</label>
+                <input type="text" name="title" class="form-control" required/>
+      
+                <label for="">Category</label>
+                <select class="form-select" name="category" aria-label="Default select example"> 
+                  <option selected disabled>Choose...</option>
+                  <% category.forEach(x=>{ %>  
+                      <option value="<%= x.categoryName %>"><%= x.categoryName %> </option> 
+                      <% } )%> 
+                </select> 
+      
+                <label for="">Price</label>
+                <input type="text" name="price" class="form-control" required/>
+
+                <label for="">Brand</label>
+                <input type="text" name="brand" class="form-control" required/>
+      
+                <label for="">Offer</label>
+               <input type="text" name="offer" class="form-control" required/>
+      
+                <label for="">Description</label>
+                <textarea  type="text-field" name="description" class="form-control" required rows="4" cols="50"></textarea>
+                <!-- <input type="text-field" name="description" class="form-control" required/> -->
+      
+                <label for="">Stock</label>
+                <input type="text" name="stock" class="form-control" required/>
+
+      
+                <label for="">Images</label>
+                <input type="file" name="image" class="form-control"  multiple/>
+      
+                
+                 <% if(typeof message !== 'undefined'){%>
+                
+                 <p class="mt-1 ps-2 text-danger" ><%= message %></p>
+                  
+                <%}%>
+      
+                <button type="submit" class="btn btn-primary mt-4" >Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+ 
+</div>
+<%- include("../layouts/footer.ejs") %>

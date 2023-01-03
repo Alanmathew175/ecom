@@ -1,0 +1,72 @@
+<%- include("../layouts/header.ejs") %> <%-
+include("../layouts/adminnavbar.ejs") %>
+<div class="work-space py-3 px-3 ">
+    
+    
+<section class="vh-100 mt-5">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 text-black">
+                <div
+                    class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
+                >
+                    <form style="width: 23rem" action="" method="post">
+                       
+
+                        <div class="form-outline mb-4">
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control form-control-lg"
+                            />
+                            <label class="form-label">Name</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input
+                                type="number"
+                                name="value"
+                                class="form-control form-control-lg"
+                            />
+                            <label class="form-label">Value</label>
+                        </div>
+                    
+                        
+                        <div class="form-outline mb-4">
+                            <input
+                                type="text"
+                                name="code"
+                                class="form-control form-control-lg"
+                            />
+                            <label class="form-label">Code</label>
+                        </div>
+                        
+                        <div class="form-outline mb-4">
+                            <input
+                                type="date"
+                                name="date"
+                                class="form-control form-control-lg"
+                            />
+                            <label class="form-label">Expiry Date</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input
+                                type="number"
+                                name="minbill"
+                                class="form-control form-control-lg"
+                            />
+                            <label class="form-label">Minimum Bill</label>
+                        </div>
+                        <input type="submit" value="Submit" class="btn btn-primary">
+
+                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+</div>
+<%- include("../layouts/footer.ejs") %>
