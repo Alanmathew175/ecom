@@ -22,7 +22,7 @@ app.use(nocache())
 app.use(cookieParser())
 app.use(
   session({
-    secret:'fghjkpoiuyttdfghj',
+   
     saveUninitialized: true,
     resave: true
   })
