@@ -55,7 +55,7 @@ exports.loadAdminHome = async (req, res) => {
         const products = await Products.count()
         const users = await Users.count()
   
-        const a = xxx.map((x) => x._id);
+        // const a = xxx.map((x) => x._id);
         const amount = xxx.map((x) => x.amount);
     
         res.render("admin/home", {
