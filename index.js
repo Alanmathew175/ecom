@@ -5,6 +5,7 @@ const express = require('express')
 const app = express()
 const user = require('./routes/userroutes')
 const admin = require('./routes/adminroutes')
+const cookieParser =require('cookie-parser')
 const paypal = require('paypal-rest-sdk');
 const cors = require('cors')
 paypal.configure({
@@ -18,9 +19,10 @@ const flash = require('connect-flash')
 const nocache = require('nocache')
 app.use(cors())
 app.use(nocache())
+app.use(cookieParser())
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret:'fghjkpoiuyttdfghj',
     saveUninitialized: true,
     resave: true
   })
